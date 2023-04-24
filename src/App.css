@@ -16,7 +16,7 @@
 html, body {
   margin: 0;
   padding: 0;
-  background-color: rgb(30, 29, 29);
+  background-color: #1e1d1d;
 }
 
 .nav-container {
@@ -52,7 +52,7 @@ html, body {
 
 .get-started:hover {
 color: aliceblue;
-background-color: rgb(30, 29, 29);
+background-color: #1e1d1d;
 transition: 0.25s ease;
 }
 

@@ -6,7 +6,8 @@ module.exports = {
   theme: {
     fontFamily:{
       'body': ['Plus Jakarta Sans', 'sans-serif'],
-      'rampart':['Rampart One','cursive']
+      'rampart':['Rampart One','cursive'],
+      'poppins':['Poppins','sans-serif']
     },
     extend: {},
   },

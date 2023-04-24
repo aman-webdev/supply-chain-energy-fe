@@ -13,14 +13,18 @@ import {
   useConnect,
   WagmiConfig,
 } from "wagmi";
-import { arbitrum, mainnet, polygon } from "wagmi/chains";
+import { arbitrum, mainnet, polygon, polygonMumbai } from "wagmi/chains";
 import Header from "./components/Header";
 import LandingPage from "./pages/LandingPage";
+import Dashboard from "./pages/Dashboard";
 import { useWeb3ModalTheme } from "@web3modal/react";
 import "./App.css";
+import Powerplants from "./pages/Powerplants";
+import Substations from "./pages/Substations";
+import Distributors from "./pages/Distributors";
 
-const chains = [arbitrum, mainnet, polygon];
-const projectId = "c35dde76be433065d85e96177986abd7";
+const chains = [polygonMumbai];
+const projectId = process.env.REACT_APP_WALLET_CONNECT_PROJECT_ID;
 
 const { provider } = configureChains(chains, [w3mProvider({ projectId })]);
 const wagmiClient = createClient({
@@ -32,8 +36,6 @@ const ethereumClient = new EthereumClient(wagmiClient, chains);
 
 function App() {
   const { setTheme } = useWeb3ModalTheme();
-  const navigate = useNavigate();
-  const { address, isConnected, isDisconnected } = useAccount();
 
   useEffect(() => {
     setTheme({
@@ -53,6 +55,10 @@ function App() {
           <Header className="component" />
           <Routes>
             <Route path="/" element={<LandingPage className="component" />} />
+            <Route path="/dashboard" element={<Dashboard  />} />
+            <Route path="/powerplants" element={<Powerplants  />} />
+            <Route path="/substations" element={<Substations  />} />
+            <Route path="/distributors" element={<Distributors  />} />
           </Routes>
         </div>
       </WagmiConfig>

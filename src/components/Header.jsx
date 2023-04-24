@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Web3Button } from "@web3modal/react";
 import { useAccount } from "wagmi";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Header() {
   const navigate = useNavigate();
@@ -13,7 +13,7 @@ function Header() {
   }, [isConnected, isDisconnected]);
 
   return (
-    <div className="nav-container ">
+    <div className="nav-container  border-b-[1px] border-spacing-3 border-slate-200">
       <div className="logo flex gap-2 items-center">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -30,11 +30,11 @@ function Header() {
         </svg>
           <p className="text-[#fffc12] text-xl">Niro</p>
       </div>
-      {/* <ul className="nav-items">
-                <li>Power Generation</li>
-                <li>Power Transmission</li>
-                <li>Power Distribution</li>
-            </ul> */}
+      <ul className="nav-items">
+                <Link to='/powerplants' >Power Generation</Link >
+                <Link to={'/substations'} >Power Transmission</Link >
+                <Link to={'/distributors'} >Power Distribution</Link >
+            </ul>
 
       <Web3Button label={"Get Started"} />
     </div>
