@@ -1,38 +1,256 @@
-.App {
-  text-align: center;
+
+/* App.css properties */
+*{
+  box-sizing: border-box;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.main {
   display: flex;
   flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+/* Nav.css */
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background-color: rgb(30, 29, 29);
+}
+
+.nav-container {
+  font-size: 1rem;
+  width: 100%;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  padding: .5rem 2rem;
+  align-items: center;
+  /* opacity: 0.8; */
+}
+
+.nav-items {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 1rem;
+  /* gap: 4%; */
+  width: 50%;
+  list-style-type: none;
+}
+
+.get-started {
+ padding: .75rem 2rem;
+ border-radius: 3px;
+ cursor: pointer;
+ background-color: #fffc12;
+ color: rgb(30, 29, 29);
+ border: none;
+ font-weight: 500;
+}
+
+.get-started:hover {
+color: aliceblue;
+background-color: rgb(30, 29, 29);
+transition: 0.25s ease;
+}
+
+/* Starter.css */
+p {
+  font-size: 16px;
+}
+
+/* h1 {
+  color: rgb(173, 172, 172);
+} */
+
+.starter-container {
+  background-image: url("https://images.unsplash.com/photo-1532007271951-c487760934ae?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=580&q=80");
+  background-color: rgb(30, 29, 29,.6);
+  background-blend-mode: overlay;
+  background-size: cover;
+  /* opacity: 0.8; */
+  background-repeat: no-repeat;
+  
+  width: 100%;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  /* align-items: flex-start; */
+  /* align-content: flex-start; */
+  /* gap: 9%; */
+  margin-bottom: 1rem;
+  color: white;
+  padding-top: 5rem;
+  padding-bottom: 15rem;
+
+}
+
+.overlap {
+  display: flex;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  gap: 7%;
+  font-size: 1.25rem;
+  /* background-color: black; */
+}
+
+.parts {
+  flex-basis: 43%;
+  /* gap: 10%; */
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+#heading {
+  font-size: 65px;
 }
 
-@keyframes App-logo-spin {
+@keyframes fade-in {
   from {
-    transform: rotate(0deg);
+    opacity: 0;
   }
+
   to {
-    transform: rotate(360deg);
+    opacity: 1;
   }
 }
+
+.learn-more {
+  align-items: center;
+}
+
+#p2 {
+ color: white;
+ font-size: 1.5rem;
+ line-height: 1.6;
+}
+
+.p2-content{
+  font-size: 1.125rem;
+}
+
+#p2 button {
+  background: none;color: white;
+  border-radius: 5px;
+  padding: .75rem 2.5rem;
+  border:1px solid aliceblue;
+  margin-top: .5rem;
+}
+
+.next button {
+
+}
+
+.explore-btn {
+  height: fit-content;
+  padding: 10px;
+  font-size: 15px;
+  border-radius: 10px;
+  background-color: antiquewhite;
+  color: black;
+  animation: fade-in;
+  animation-duration: 3s;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+.overlapping-container {
+  /* position: relative; */
+}
+
+
+
+.who-we-are {
+  display: flex;
+  gap: 5%;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  width: 80%;
+  /* height: fit-content; */
+  /* position top left and right are for making this div overlap the other two */
+  position: relative;
+ top: -200px;
+  left: 10%;
+  background-color: aliceblue;
+  z-index: 1;
+  border-radius: 10px;
+  padding: 5%;
+}
+
+.who-we-are p {
+  border-bottom: 1px solid rgb(121, 120, 120);
+  padding-bottom: 40px;
+  color: rgb(121, 120, 120);
+}
+
+.why-us {
+  flex-basis: 45%;
+}
+
+.what-we-are-offering {
+  position: relative;
+  /* height: fit-content; */
+  width: 100%;
+  background-color: rgb(30, 29, 29);
+  color: white;
+  /* position: absolute; */
+  margin-top: -100px;
+padding: .25rem 2rem;
+}
+
+.offers-part1 {
+  justify-content: space-between;
+ /* margin-top: 8rem; */
+  
+  
+}
+
+.offers-part1 #header1 {
+  font-size: 45px;
+  /* padding-right: 22%; */
+}
+
+.offers-part1 p {
+  flex-basis: 30%;
+  line-height: 1.6;
+}
+
+.offers-part2 {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  gap: 3%;
+  color: white;
+  background-color: rgb(30, 29, 29);
+  z-index: 0;
+  margin-top: 2rem;
+}
+
+.divs {
+  flex-basis: 25%;
+  padding-left: 5%;
+}
+
+.image {
+  height: 50px;
+  width: 50px;
+}
+
+.divs h1 {
+  font-size: 20px;
+}
+
+.divs a {
+  text-decoration: none;
+  color: whitesmoke;
+  position: relative;
+}
+
+.divs a::after {
+  content: " \2192";
+  position: absolute;
+  right: -1.2rem;
+  transform: rotate(-43deg);
+}
+
