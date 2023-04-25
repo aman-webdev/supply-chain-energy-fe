@@ -4,14 +4,20 @@ import SubstationInfo from './SubstationInfo'
 import DistributorInfo from './DistributorInfo'
 import ConsumerInfo from './ConsumerInfo'
 
-const Container = ({entities,type='powerplant'}) => {
+const Container = ({entities,type='powerplant',connectionType='',title='',userEntities,hasUserCreatedEntity}) => {
   return (
-    <div className='w-full mt-8 flex gap-10  flex-wrap items-stretch'>
-      {entities?.length && type==='powerplant' ? entities.map(entity=><PowerplantInfo entity={entity} key={entity.id}/>) :null}
-      {entities?.length && type==='substation' ? entities.map(entity=><SubstationInfo entity={entity} key={entity.id}/>) :null}
-      {entities?.length && type==='distributor' ? entities.map(entity=><DistributorInfo entity={entity} key={entity.id}/>) :null}
+    <>
+      <h3 className='mt-6 text-xl'>{title}</h3>
+    <div className='w-full  flex gap-5  flex-wrap items-stretch'>
+      {entities?.length && type==='powerplant' && connectionType==='' ? entities.map(entity=><PowerplantInfo userEntities={userEntities} hasUserCreatedEntity={hasUserCreatedEntity} entity={entity} key={entity.id}/>) :null}
+      {entities?.length && type==='powerplant' && connectionType==='substation' ? entities.map(entity=><SubstationInfo userEntities={userEntities} hasUserCreatedEntity={hasUserCreatedEntity}  entity={entity} key={entity.id}/>) :null}
+      {entities?.length && type==='substation' && connectionType==='' ? entities.map(entity=><SubstationInfo userEntities={userEntities} hasUserCreatedEntity={hasUserCreatedEntity}  entity={entity} key={entity.id}/>) :null}
+      {entities?.length && type==='substation' && connectionType==='distributor' ? entities.map(entity=><DistributorInfo userEntities={userEntities} hasUserCreatedEntity={hasUserCreatedEntity}  entity={entity} key={entity.id}/>) :null}
+      {entities?.length && type==='distributor'&& connectionType==='' ? entities.map(entity=><DistributorInfo userEntities={userEntities} hasUserCreatedEntity={hasUserCreatedEntity}  entity={entity} key={entity.id}/>) :null}
+      {entities?.length && type==='distributor' && connectionType==='consumer' ? entities.map(entity=><ConsumerInfo userEntities={userEntities} hasUserCreatedEntity={hasUserCreatedEntity}  entity={entity} key={entity.id}/>) :null}
       {entities?.length && type==='Consumer' ? entities.map(entity=><ConsumerInfo entity={entity} key={entity.id}/>) :null}
     </div>
+    </>
   )
 }
 

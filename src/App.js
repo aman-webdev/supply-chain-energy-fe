@@ -36,6 +36,15 @@ const ethereumClient = new EthereumClient(wagmiClient, chains);
 
 function App() {
   const { setTheme } = useWeb3ModalTheme();
+  const [userEntities, setUserEntities] = useState({
+    powerplants: [],
+    substations: [],
+    distributors: [],
+    consumers: [],
+  });
+  const [hasUserCreatedEntity, setHasUserCreatedEntity] = useState(false);
+
+  console.log(userEntities,"in app")
 
   useEffect(() => {
     setTheme({
@@ -55,10 +64,10 @@ function App() {
           <Header className="component" />
           <Routes>
             <Route path="/" element={<LandingPage className="component" />} />
-            <Route path="/dashboard" element={<Dashboard  />} />
-            <Route path="/powerplants" element={<Powerplants  />} />
-            <Route path="/substations" element={<Substations  />} />
-            <Route path="/distributors" element={<Distributors  />} />
+            <Route path="/dashboard" element={<Dashboard userEntities={userEntities} setUserEntities={setUserEntities} hasUserCreatedEntity={hasUserCreatedEntity} setHasUserCreatedEntity={setHasUserCreatedEntity}  />} />
+            <Route path="/powerplants" element={<Powerplants userEntities={userEntities} setUserEntities={setUserEntities} hasUserCreatedEntity={hasUserCreatedEntity} setHasUserCreatedEntity={setHasUserCreatedEntity}   />} />
+            <Route path="/substations" element={<Substations  userEntities={userEntities} setUserEntities={setUserEntities} hasUserCreatedEntity={hasUserCreatedEntity} setHasUserCreatedEntity={setHasUserCreatedEntity} />} />
+            <Route path="/distributors" element={<Distributors userEntities={userEntities} setUserEntities={setUserEntities} hasUserCreatedEntity={hasUserCreatedEntity} setHasUserCreatedEntity={setHasUserCreatedEntity}  />} />
           </Routes>
         </div>
       </WagmiConfig>

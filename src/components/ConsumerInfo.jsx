@@ -1,7 +1,8 @@
 import React from "react";
+import { useLocation } from "react-router-dom";
 import Arrow from "./Arrow";
 
-const SubstationInfo = ({ entity }) => {
+const SubstationInfo = ({ entity,userEntities,hasUserCreatedEntity }) => {
   const {
     id,
     number,
@@ -10,10 +11,11 @@ const SubstationInfo = ({ entity }) => {
     // area,
     totalEnergyBought,
     addedAt,
-    energyConsumedIncurrentCycle,isElectricitySupply
+    energyConsumedIncurrentCycle,isElectricitySupply,isConnectedToDistributor,distributor
   } = entity;
+  const location = useLocation()
   return (
-    <div className="text-white p-6 border my-8 w-2/4 rounded-sm border-[#fffc12]  flex justify-between flex-col">
+    <div className={`text-white p-6 border my-8  rounded-sm border-[#fffc12]  flex justify-between flex-col ${location.pathname==='/dashboard' ? 'w-2/4':''}`}>
       <div>
       <div className="flex justify-between items-center border-b-2 pb-3 border-[#ffffffa2]">
         <h1 className="text-xl">{name}</h1>
@@ -27,6 +29,15 @@ const SubstationInfo = ({ entity }) => {
         <p>ID </p>
         <p>{id}</p>
       </div>
+      {isConnectedToDistributor && distributor && <div className="text-xs my-4 flex justify-between">
+          <p>Connected To</p>
+          <div className="flex items-center gap-4">
+          <p>{distributor?.id}</p>
+          <p>|</p>
+          <p>{distributor?.energyAvailableToBuy} Units Avail.</p>
+          </div>
+          
+        </div>}
       <div className="text-xs my-4 flex justify-between">
         <p>Added At</p>
         <p>{new Date(addedAt * 1000).toLocaleDateString()}</p>
@@ -46,12 +57,12 @@ const SubstationInfo = ({ entity }) => {
       </div>
       <div
         className={`flex justify-center mt-6 ${
-          isElectricitySupply ? "bg-green-400" : "bg-red-500"
+          isElectricitySupply   && distributor?.isElectricitySupply? "bg-green-400" : "bg-red-500"
         } py-2 px-4`}
       >
         <p className="text-center font-poppins font-medium text-xl">
           {" "}
-          {isElectricitySupply ? "Electricity Supply" : "No Electricity Supply"}
+          {isElectricitySupply && distributor?.isElectricitySupply ? "Electricity Supply" : "No Electricity Supply"}
         </p>
       </div>
       </div>

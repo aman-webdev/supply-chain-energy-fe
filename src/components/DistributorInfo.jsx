@@ -5,8 +5,9 @@ import { useAccount, useContract, useSigner } from "wagmi";
 import notify from "../utils/notify";
 import EnergyMarketplaceABI from "../utils/EnergySupplyChain.json"
 import Arrow from "./Arrow";
+import EntityModal from "./EntityModal";
 
-const DistributorInfo = ({ entity }) => {
+const DistributorInfo = ({ entity,userEntities,hasUserCreatedEntity }) => {
   const {
     id,
     number,
@@ -18,7 +19,7 @@ const DistributorInfo = ({ entity }) => {
     energyAvailableToBuy,
     addedAt,
     toShowLessEnergyWarning,
-    isElectricitySupply,isConnectedToSubstation
+    isElectricitySupply,isConnectedToSubstation,substation
   } = entity;
 
   const {address}=useAccount()
@@ -29,6 +30,7 @@ const DistributorInfo = ({ entity }) => {
     signerOrProvider: signer,
   });
   const [energyAmount,setEnergyAmount]=useState('')
+  const [isModalOpen,setIsModalOpen]=useState('')
   const location = useLocation()
 
   const buyEnergy=async()=>{
@@ -45,7 +47,7 @@ const DistributorInfo = ({ entity }) => {
   
 
   return (
-    <div className="text-white p-6 border my-8 w-2/4 rounded-sm border-[#fffc12]  flex justify-between flex-col">
+    <div className={`text-white p-6 border my-8  rounded-sm border-[#fffc12]  flex justify-between flex-col ${location.pathname==='/dashboard' ? 'w-2/4':''}`}>
       <div>
       <div className="flex justify-between items-center border-b-2 pb-3 flex-wrap gap-4 border-[#ffffffa2]">
         <h1 className="text-xl">{name}</h1>
@@ -63,6 +65,15 @@ const DistributorInfo = ({ entity }) => {
         <p>Area </p>
         <p>{area}</p>
       </div>
+      {isConnectedToSubstation && substation && <div className="text-xs my-4 flex justify-between">
+          <p>Connected To</p>
+          <div className="flex items-center gap-4">
+          <p>{substation?.id}</p>
+          <p>|</p>
+          <p>{substation?.energyAvailableToBuy} Units Avail.</p>
+          </div>
+          
+        </div>}
       <div className="text-xs my-4 flex justify-between">
         <p>Added At</p>
         <p>{new Date(addedAt * 1000).toLocaleDateString()}</p>
@@ -81,7 +92,7 @@ const DistributorInfo = ({ entity }) => {
           </button>
         </div>
       </div>}
-      <div
+      <div onClick={()=>setIsModalOpen(!isModalOpen)}
         className={`hero w-full  hover:bg-[#fffc12] bg-[#1e1d1d] text-[#fffc12] cursor-pointer transition-colors hover:text-black text-xs py-4 px-5 flex justify-evenly`}
       >
         <div className="text-left">
@@ -118,6 +129,7 @@ const DistributorInfo = ({ entity }) => {
       </div>
       </>
       </div>
+      <EntityModal userEntities={userEntities} hasUserCreatedEntity={hasUserCreatedEntity}  id={id} modalIsOpen={isModalOpen} setIsModalOpen={setIsModalOpen} type='distributor' connectionType='consumer' />
       <ToastContainer position="top-right" theme="dark"/>
     </div>
     

@@ -4,8 +4,9 @@ import { toast, ToastContainer } from "react-toastify";
 import { useAccount, useContract, useSigner } from "wagmi";
 import EnergyMarketplaceABI from "../utils/EnergySupplyChain.json"
 import notify from "../utils/notify";
+import EntityModal from "./EntityModal";
 
-const SubstationInfo = ({ entity }) => {
+const SubstationInfo = ({ entity,userEntities,hasUserCreatedEntity }) => {
   const {
     id,
     number,
@@ -27,6 +28,9 @@ const SubstationInfo = ({ entity }) => {
   const [energyAmount,setEnergyAmount]=useState('')
   const location = useLocation()
 
+  const [isModalOpen,setIsModalOpen]=useState(false);
+  console.log(isModalOpen,"substation modal")
+
   const buyEnergy=async()=>{
     try{
       const tx = await contract.buyEnergyFromPowerPlant(energyAmount)
@@ -40,7 +44,7 @@ const SubstationInfo = ({ entity }) => {
 
 
   return (
-    <div className="text-white p-6 border my-8 w-2/4 rounded-sm border-[#fffc12]  flex justify-between flex-col">
+    <div className={`text-white p-6 border my-8  rounded-sm border-[#fffc12]  flex justify-between flex-col ${location.pathname==='/dashboard' ? 'w-2/4':''}`}>
       <div>
       <div className="flex justify-between items-center  border-b-2 pb-3 border-[#ffffffa2]">
         <h1 className="text-xl">{name}</h1>
@@ -60,7 +64,12 @@ const SubstationInfo = ({ entity }) => {
       </div>
      {isConnectedToPowerplant && powerplant && <div className="text-xs my-4 flex justify-between">
           <p>Connected To</p>
+          <div className="flex items-center gap-4">
           <p>{powerplant?.id}</p>
+          <p>|</p>
+          <p>{powerplant?.energyAvailableToBuy} Units Avail.</p>
+          </div>
+          
         </div>}
       <div className="text-xs my-4 flex justify-between">
         <p>Added At</p>
@@ -76,12 +85,12 @@ const SubstationInfo = ({ entity }) => {
             className="py-1 px-6 focus:border-[#fffc12] text-black focus:border focus:outline-none "
           />
           <button onClick={buyEnergy} className="py-1 px-8 bg-[#fffc12] font-medium text-black font-poppins">
-         { powerplant &&powerplant?.energyAvailableToBuy ? powerplant.energyAvailableToBuy :  'Buy Energy'}
+         Buy Energy
           </button>
         </div>
       </div>}
       </div>
-      <div className="hero w-full  hover:bg-[#fffc12] bg-[#1e1d1d] text-[#fffc12] cursor-pointer transition-colors hover:text-black text-xs py-4 px-5 flex justify-evenly">
+      <div onClick={()=>setIsModalOpen(true)} className="hero w-full  hover:bg-[#fffc12] bg-[#1e1d1d] text-[#fffc12] cursor-pointer transition-colors hover:text-black text-xs py-4 px-5 flex justify-evenly">
         <div className="text-left">
           <p>Total units Bought</p>
           <p className="mt-2 font-bold text-2xl">{totalEnergyBought}</p>
@@ -96,6 +105,7 @@ const SubstationInfo = ({ entity }) => {
         </div>
       </div>
       <ToastContainer position="top-right" theme="dark"/>
+       <EntityModal userEntities={userEntities} hasUserCreatedEntity={hasUserCreatedEntity}  id={id} modalIsOpen={isModalOpen} setIsModalOpen={setIsModalOpen} type='substation' connectionType='distributor' />
     </div>
   );
 };

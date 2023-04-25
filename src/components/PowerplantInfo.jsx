@@ -5,8 +5,10 @@ import EnergyMarketplaceABI from "../utils/EnergySupplyChain.json"
 import notify from "../utils/notify";
 import 'react-toastify/dist/ReactToastify.css';
 import { useLocation } from "react-router-dom";
+import EntityModal from "./EntityModal"
 
-const PowerplantInfo = ({ entity }) => {
+
+const PowerplantInfo = ({ entity,userEntities,hasUserCreatedEntity }) => {
 
   const {
     id,
@@ -28,6 +30,7 @@ const PowerplantInfo = ({ entity }) => {
     signerOrProvider: signer,
   });
   const [energyAmount,setEnergyAmount]=useState('')
+  const [isModalOpen,setIsModalOpen]=useState(false)
   const location = useLocation()
 
   const addEnergyAvailableToBuy=async()=>{
@@ -42,7 +45,7 @@ const PowerplantInfo = ({ entity }) => {
   }
 
   return (
-    <div className="text-white p-6 border my-8 w-2/4 rounded-sm border-[#fffc12]  flex justify-between flex-col">
+    <div className={`text-white p-6 border my-8  rounded-sm border-[#fffc12]  flex justify-between flex-col ${location.pathname==='/dashboard' ? 'w-2/4':''}`}>
     
       <div className="">
         <div className="flex justify-between items-center border-b-2 pb-3 border-[#ffffffa2]">
@@ -80,7 +83,7 @@ const PowerplantInfo = ({ entity }) => {
           </button>
         </div>
       </div>}
-      <div className="hero w-full  hover:bg-[#fffc12] bg-[#1e1d1d] text-[#fffc12] cursor-pointer transition-colors hover:text-black text-xs py-4 px-5 flex justify-evenly">
+      <div onClick={()=>setIsModalOpen(!isModalOpen)} className="hero w-full  hover:bg-[#fffc12] bg-[#1e1d1d] text-[#fffc12] cursor-pointer transition-colors hover:text-black text-xs py-4 px-5 flex justify-evenly">
         <div className="text-left">
           <p>Total units Produced</p>
           <p className="mt-2 font-bold text-2xl">{totalEnergyProduced}</p>
@@ -95,6 +98,7 @@ const PowerplantInfo = ({ entity }) => {
         </div>
       </div>
       <ToastContainer position="top-right" theme="dark"/>
+      <EntityModal userEntities={userEntities} hasUserCreatedEntity={hasUserCreatedEntity}  id={id} modalIsOpen={isModalOpen} setIsModalOpen={setIsModalOpen} type='powerplant' connectionType='substation' />
     </div>
   );
 };

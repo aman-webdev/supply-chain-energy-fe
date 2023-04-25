@@ -1,11 +1,10 @@
 import React from "react";
 import { useQuery } from "@apollo/client";
-import Container from "../components/Container"
+import Container from "../components/Container";
 import { GET_SUBSTATIONS } from "../utils/queries";
-import No from "../assets/No.svg"
+import {ReactComponent as No} from "../assets/No.svg";
 
-
-const Powerplants = () => {
+const Substations = ({ userEntities, hasUserCreatedEntity }) => {
   const { error, loading, data } = useQuery(GET_SUBSTATIONS);
   return (
     <div className="text-white w-full mx-auto p-6 my-6">
@@ -16,8 +15,15 @@ const Powerplants = () => {
       ) : (
         <div>
           <h1 className="text-[white] text-4xl font-bold">Substations</h1>
-           {data.substations && <Container type="substation" entities={data.substations}/>}
-           {!data?.substations?.length && <div><No className='w-1/3 h-1/3 mx-auto my-6'/>
+          {data.substations && (
+            <Container
+              userEntities={userEntities}
+              hasUserCreatedEntity={hasUserCreatedEntity}
+              type="substation"
+              entities={data.substations}
+            />
+          )}
+         {!data?.substations?.length && <div><No className='w-1/3 h-1/3 mx-auto my-6'/>
            <p className="text-white text-center text-xs">Not Yet..Create a new one</p>
            </div>}
         </div>
@@ -26,4 +32,4 @@ const Powerplants = () => {
   );
 };
 
-export default Powerplants;
+export default Substations;

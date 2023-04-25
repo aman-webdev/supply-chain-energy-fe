@@ -10,7 +10,7 @@ import SubstationInfo from "../components/SubstationInfo";
 import ConsumerInfo from "../components/ConsumerInfo";
 import DistributorInfo from "../components/DistributorInfo";
 
-const Home = ({ entities }) => {
+const Home = ({ entities,hasUserCreatedEntity }) => {
   console.log(entities);
   const { powerplants, substations, distributors, consumers } = entities;
 
@@ -21,7 +21,7 @@ const Home = ({ entities }) => {
         <div className="mb-12">
           <h1 className="text-[white] text-4xl font-bold">Powerplant</h1>
           {powerplants.map((powerplant) => (
-            <PowerplantInfo key={powerplant.id} entity={powerplant} />
+            <PowerplantInfo userEntities={entities} hasUserCreatedEntity={hasUserCreatedEntity} key={powerplant.id} entity={powerplant} />
           ))}
         </div>
       ) : null}
@@ -29,7 +29,7 @@ const Home = ({ entities }) => {
         <div className="mb-12">
             <h1 className="text-[white] text-4xl font-bold">Substation</h1>
           {substations.map((substation) => (
-            <SubstationInfo key={substation.id} entity={substation} />
+            <SubstationInfo userEntities={entities} hasUserCreatedEntity={hasUserCreatedEntity} key={substation.id} entity={substation} />
           ))}
         </div>
       ) : null}
@@ -37,7 +37,7 @@ const Home = ({ entities }) => {
         <div className="mb-12">
             <h1 className="text-[white] text-4xl font-bold">Distributor</h1>
           {distributors.map((distributor) => (
-            <DistributorInfo key={distributor.id} entity={distributor} />
+            <DistributorInfo userEntities={entities} hasUserCreatedEntity={hasUserCreatedEntity} key={distributor.id} entity={distributor} />
           ))}
         </div>
       ) : null}
@@ -45,7 +45,7 @@ const Home = ({ entities }) => {
         <div className="mb-12">
             <h1 className="text-[white] text-4xl font-bold">Consumer</h1>
           {consumers.map((consumer) => (
-            <ConsumerInfo key={consumer.id}  entity={consumer}/>
+            <ConsumerInfo  userEntities={entities} hasUserCreatedEntity={hasUserCreatedEntity} key={consumer.id}  entity={consumer}/>
           ))}
         </div>
       ) : null}
@@ -54,8 +54,9 @@ const Home = ({ entities }) => {
   );
 };
 
-const Dashboard = () => {
+const Dashboard = ({userEntities,setUserEntities,hasUserCreatedEntity,setHasUserCreatedEntity}) => {
   const { isConnected, address } = useAccount();
+  
   console.log(address, "address");
   const { error, loading, data } = useQuery(GET_ALL_ENTITIES_BY_ADDRESS, {
     variables: {
@@ -63,13 +64,7 @@ const Dashboard = () => {
     },
   });
   console.log(error);
-  const [userEntities, setUserEntities] = useState({
-    powerplants: [],
-    substations: [],
-    distributors: [],
-    consumers: [],
-  });
-  const [hasUserCreatedEntity, setHasUserCreatedEntity] = useState(false);
+    console.log(userEntities,hasUserCreatedEntity,"Dash")
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -89,7 +84,7 @@ const Dashboard = () => {
     };
 
     checkIfUserHasEntity();
-  }, [data]);
+  }, [data,setUserEntities]);
 
   useEffect(() => {
     const { powerplants, substations, distributors, consumers } = userEntities;
@@ -101,14 +96,14 @@ const Dashboard = () => {
     )
       setHasUserCreatedEntity(true);
     else setHasUserCreatedEntity(false);
-  }, [userEntities]);
+  }, [userEntities,setHasUserCreatedEntity]);
 
   const renderResult = () => {
     if (!isConnected) return navigate("/");
     if (isConnected && !hasUserCreatedEntity) return <Welcome />;
     if (isConnected && hasUserCreatedEntity) {
       console.log("in if");
-      return <Home entities={userEntities} />;
+      return <Home entities={userEntities} hasUserCreatedEntity={hasUserCreatedEntity} />;
     }
   };
 
