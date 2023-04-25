@@ -76,7 +76,7 @@ const SubstationInfo = ({ entity }) => {
             className="py-1 px-6 focus:border-[#fffc12] text-black focus:border focus:outline-none "
           />
           <button onClick={buyEnergy} className="py-1 px-8 bg-[#fffc12] font-medium text-black font-poppins">
-            Buy Energy
+         { powerplant &&powerplant?.energyAvailableToBuy ? powerplant.energyAvailableToBuy :  'Buy Energy'}
           </button>
         </div>
       </div>}
