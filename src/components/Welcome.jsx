@@ -8,6 +8,10 @@ import { ReactComponent as SubstationIcon } from "../assets/Substation.svg";
 import { ReactComponent as DistributorIcon } from "../assets/Distributor.svg";
 import { ReactComponent as FormIllustration } from "../assets/FormIllustration.svg";
 import EnergyMarketplaceABI from "../utils/EnergySupplyChain.json";
+import { toast, ToastContainer } from 'react-toastify';
+import notify from "../utils/notify"
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const entities = [
   {
@@ -96,31 +100,40 @@ const Welcome = () => {
       formData = { name, homeAddress: address };
     }
 
-    switch (selectedEntity.value) {
-      case "powerplant":
-        const txPower = await contract.addPowerPlant(formData.name,formData.area,formData.energyAvailableToBuy);
-        console.log(txPower);
-        closeModal()
-        break;
-      case "substation":
-        const txSub = await contract.addSubstation(formData.name,formData.area,formData.energyAvailableToBuy);
-        console.log(txSub);
-        closeModal()
-        break;
-      case "distributor":
-        const txDis = await contract.addDistributor(formData.name,formData.area,formData.energyAvailableToBuy);
-        console.log(txDis);
-        closeModal()
-        break;
-      case "consumer":
-        const txCon = await contract.addConsumer(formData.name,formData.homeAddress);
-        console.log(txCon);
-        closeModal()
-        break;
-      default:
-        console.log("default case");
-        break;
-    }
+    try{
+        switch (selectedEntity.value) {
+          case "powerplant":
+            const txPower = await contract.addPowerPlant(formData.name,formData.area,formData.energyAvailableToBuy);
+            console.log(txPower);
+            notify("Powerplant added successfully")
+            closeModal()
+            break;
+          case "substation":
+            const txSub = await contract.addSubstation(formData.name,formData.area,formData.energyAvailableToBuy);
+            console.log(txSub);
+            notify("Substation added successfully")
+            closeModal()
+            break;
+          case "distributor":
+            const txDis = await contract.addDistributor(formData.name,formData.area,formData.energyAvailableToBuy);
+            console.log(txDis);
+            notify("Distributor added successfully")
+            closeModal()
+            break;
+          case "consumer":
+            const txCon = await contract.addConsumer(formData.name,formData.homeAddress);
+            console.log(txCon);
+            notify("Consumer added successfully")
+            closeModal()
+            break;
+          default:
+            console.log("default case");
+            break;
+        }
+      }catch(e){
+        toast.error(e.reason)
+      }
+    
   };
 
   const closeModal= () => {
@@ -219,6 +232,7 @@ const Welcome = () => {
           </button>
         </form>
       </Modal>
+      <ToastContainer theme="dark" position="top-right"/>
     </div>
   );
 };

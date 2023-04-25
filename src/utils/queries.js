@@ -24,6 +24,10 @@ query ($owner:Bytes!){
         energyAvailableToBuy
         addedAt
         isConnectedToPowerplant
+        powerplant{
+            id
+            energyAvailableToBuy
+        }
        
     }
     distributors( where:{owner:$owner}){
@@ -39,6 +43,10 @@ query ($owner:Bytes!){
         toShowLessEnergyWarning
         isElectricitySupply
         isConnectedToSubstation
+        substation{
+            id
+            energyAvailableToBuy
+        }
     }
     consumers( where:{owner:$owner}){
         id
@@ -53,6 +61,10 @@ query ($owner:Bytes!){
         addedAt
         isElectricitySupply
         isConnectedToDistributor
+        distributor{
+            id
+            energyAvailableToBuy
+        }
     }
     
 }
@@ -87,6 +99,10 @@ query{
         energyAvailableToBuy
         addedAt
         isConnectedToPowerplant
+        powerplant{
+            id
+            energyAvailableToBuy
+        }
        
     }
 }
@@ -106,6 +122,10 @@ query{
         toShowLessEnergyWarning
         isElectricitySupply
         isConnectedToSubstation
+        substation{
+            id
+            energyAvailableToBuy
+        }
     }
 }
 `

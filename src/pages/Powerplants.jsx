@@ -2,6 +2,7 @@ import React from "react";
 import { useQuery } from "@apollo/client";
 import Container from "../components/Container"
 import { GET_POWERPLANTS } from "../utils/queries";
+import No from "../assets/No.svg"
 
 const Powerplants = () => {
   const { error, loading, data } = useQuery(GET_POWERPLANTS);
@@ -15,6 +16,9 @@ const Powerplants = () => {
         <div>
           <h1 className="text-[white] text-4xl font-bold">Powerplants</h1>
            {data.powerplants && <Container entities={data.powerplants}/>}
+           {!data?.powerplants?.length && <div><No className='w-1/3 h-1/3 mx-auto my-6'/>
+           <p className="text-white text-center text-xs">Not Yet..Create a new one</p>
+           </div>}
         </div>
       )}
     </div>

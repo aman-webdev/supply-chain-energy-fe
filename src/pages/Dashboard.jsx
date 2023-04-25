@@ -15,7 +15,7 @@ const Home = ({ entities }) => {
   const { powerplants, substations, distributors, consumers } = entities;
 
   return (
-    <div className=" w-5/6 mx-auto p-6 my-12">
+    <div className="w-full mx-auto p-6 my-12">
       <div>
       {powerplants?.length ? (
         <div className="mb-12">

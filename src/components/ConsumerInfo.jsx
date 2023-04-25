@@ -13,7 +13,8 @@ const SubstationInfo = ({ entity }) => {
     energyConsumedIncurrentCycle,isElectricitySupply
   } = entity;
   return (
-    <div className="text-white p-6 border my-8 w-2/3 rounded-sm border-[#fffc12] cursor-pointer">
+    <div className="text-white p-6 border my-8 w-2/4 rounded-sm border-[#fffc12]  flex justify-between flex-col">
+      <div>
       <div className="flex justify-between items-center border-b-2 pb-3 border-[#ffffffa2]">
         <h1 className="text-xl">{name}</h1>
         <p>{owner}</p>
@@ -30,7 +31,9 @@ const SubstationInfo = ({ entity }) => {
         <p>Added At</p>
         <p>{new Date(addedAt * 1000).toLocaleDateString()}</p>
       </div>
-      <div className="hero w-full bg-[#fffc12] text-black text-xs py-4 px-5 flex justify-evenly">
+      </div>
+      <div>
+      <div className="hero w-full  hover:bg-[#fffc12] bg-[#1e1d1d] text-[#fffc12] cursor-pointer transition-colors hover:text-black text-xs py-4 px-5 flex justify-evenly">
         <div className="text-left">
           <p>Total units Bought</p>
           <p className="mt-2 font-bold text-2xl">{totalEnergyBought}</p>
@@ -50,6 +53,7 @@ const SubstationInfo = ({ entity }) => {
           {" "}
           {isElectricitySupply ? "Electricity Supply" : "No Electricity Supply"}
         </p>
+      </div>
       </div>
     </div>
   );
