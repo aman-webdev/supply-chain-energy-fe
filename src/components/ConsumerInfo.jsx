@@ -1,5 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
+import { useAccount, useContract, useSigner } from "wagmi";
+import EnergyMarketplaceABI from "../utils/EnergySupplyChain.json"
+import notify from "../utils/notify";
 import Arrow from "./Arrow";
 
 const SubstationInfo = ({ entity,userEntities,hasUserCreatedEntity }) => {
@@ -14,6 +18,38 @@ const SubstationInfo = ({ entity,userEntities,hasUserCreatedEntity }) => {
     energyConsumedIncurrentCycle,isElectricitySupply,isConnectedToDistributor,distributor
   } = entity;
   const location = useLocation()
+  const {address} = useAccount()
+  const { data: signer, isError, isLoading } = useSigner();
+  const contract = useContract({
+    address: process.env.REACT_APP_CONTRACT_ADDRESS,
+    abi: EnergyMarketplaceABI,
+    signerOrProvider: signer,
+  });
+
+  const payBill=async()=>{
+    try{
+      const tx = await contract.payBill();
+      const txRes = await tx.wait(1) 
+      notify("Bill Paid successfully")  
+    }catch(e){
+      console.log(e)
+      toast.error(e.reason)
+    }
+   
+
+  }
+  const payBillAndCancelSupply=async()=>{
+    try{
+      const tx = await contract.payBillAndCancelSupply();
+      const txRes = await tx.wait(1) 
+      notify("Cancelled successfully")  
+    }catch(e){
+      console.log(e)
+      toast.error(e.reason)
+    }
+  }
+
+
   return (
     <div className={`text-white p-6 border my-8  rounded-sm border-[#fffc12]  flex justify-between flex-col ${location.pathname==='/dashboard' ? 'w-2/4':''}`}>
       <div>
@@ -44,6 +80,17 @@ const SubstationInfo = ({ entity,userEntities,hasUserCreatedEntity }) => {
       </div>
       </div>
       <div>
+      {entity.owner?.toLowerCase()===address?.toLowerCase() && location.pathname==='/dashboard' && isConnectedToDistributor  && <div className="my-4 border-t border-[#ffffff34] pt-3 flex justify-between items-center">
+        <p></p>
+        <div className="flex gap-6">
+          <button onClick={payBill} className="py-1 px-8 bg-[#fffc12] font-medium text-black font-poppins">
+            Pay Bill
+          </button>
+          <button onClick={payBillAndCancelSupply} className="py-1 px-8 bg-[#fffc12] font-medium text-black font-poppins">
+            Cancel Supply
+          </button>
+        </div>
+      </div>}
       <div className="hero w-full  hover:bg-[#fffc12] bg-[#1e1d1d] text-[#fffc12] cursor-pointer transition-colors hover:text-black text-xs py-4 px-5 flex justify-evenly">
         <div className="text-left">
           <p>Total units Bought</p>
@@ -66,6 +113,7 @@ const SubstationInfo = ({ entity,userEntities,hasUserCreatedEntity }) => {
         </p>
       </div>
       </div>
+      <ToastContainer position="top-right" theme="dark"/>
     </div>
   );
 };

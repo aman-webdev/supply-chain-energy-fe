@@ -5,7 +5,7 @@ const DailyEnergiesContainer = ({label,dailyEnergies}) => {
   return (
     <div className=''>
         <h3 className='my-6 text-xl'>{label}</h3>
-        <div className='flex flex-wrap'>
+        <div className='flex flex-wrap gap-3'>
 
         {dailyEnergies.length ? dailyEnergies.map(energy=> <DailyEnergy energy={energy} key={energy.id}/>):null}
         </div>

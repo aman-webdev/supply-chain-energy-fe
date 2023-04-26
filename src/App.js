@@ -44,8 +44,6 @@ function App() {
   });
   const [hasUserCreatedEntity, setHasUserCreatedEntity] = useState(false);
 
-  console.log(userEntities,"in app")
-
   useEffect(() => {
     setTheme({
       themeMode: "dark",
