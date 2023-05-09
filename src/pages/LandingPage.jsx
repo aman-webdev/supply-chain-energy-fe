@@ -16,10 +16,7 @@ function LandingPage() {
             </div>
             <div className="parts" id="p2">
               <p className="p2-content">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Error
-                inventore tenetur et esse minus suscipit quos dignissimos nisi
-                blanditiis aut aspernatur, accusantium fugit ullam, optio rem
-                iusto facilis fugiat eaque.
+               We provide services to Powerplants, Substations, Distributors and Consumers with the aim to automate the energy supply, increase transparency and prevent electricity theft.
               </p>
             </div>
           </div>
@@ -27,60 +24,59 @@ function LandingPage() {
 
         <div className="who-we-are">
           <h1 className="why-us text-4xl font-bold">
-            Green We can. We Are Niro Solar
+            Streamlining Energy Supply Chain
           </h1>
           <p className="why-us">
-            We are Niro Solar. Together we will become sustainable with you! Be
-            part of something new!
+           We are bridging the gap between suppliers and consumers.
             <br />
             <br />
-            Electricity prices have risen by an average of 5.4% per year over
-            the past 20 years. Prices are expected to continue to rise at the
-            same rate. In that case, electricity prices will quadruple in 20
-            years! Whywe? PV Green, because as a young start-up from Luxemberg
-            we want to make the world a little greener.
+            Our platform enables seamless buying and selling of electricity among the stakeholders, allowing them to optimize their operations and increase transparency.
           </p>
         </div>
         <div className="what-we-are-offering">
           <div className="offers-part1 overlap">
             <h1 id="header1">What We Are Offering</h1>
             <p>
-              Integrated Hardware and simple design achieve this by securing the
-              panels close to your roof and to each other for a minimalist
-              aesthetic
+              Integrated Hardware (Smart Meters) and software implmented on blockchain
             </p>
           </div>
         </div>
       </div>
 
-      <div className="offers-part2 mb-4">
-        <div className="divs">
+      <div className="offers-part2  flex mb-12">
+        <div className="divs w-1/4">
           <img src={image2} alt="" className="image" />
           <div>
-            <h1> A Responsible Corporate</h1>
+            <h1>Powerplant</h1>
             <p>
-              Save on your electricity bills, reduce your carbon footprint and
-              increase the value of your home
+              Get started as Powerplant, where powerplants can sell energy to substations.
             </p>
           </div>
         </div>
         <div className="divs">
           <img src={utility} alt="" className="image" />
           <div className="">
-            <h1>Utility-Scane Solution</h1>
+            <h1>Substation</h1>
             <p>
-              Own a solar power plant, contract solar power, or offer directly
-              to your customers with solid business partners
+             Get Started as Substation, where a substation can view powerplants, connect to one, buy energy from it and sell it to distributors.
             </p>
           </div>
         </div>
         <div className="divs">
           <img src={image2} alt="" className="image" />
           <div>
-            <h1>Commercial Solution</h1>
+            <h1>Distributor</h1>
             <p>
-              Make a smart investment and choose solar power for your business.
-              Lock the company's social energy level.
+            Get Started as Distributor, where a distributor can view powerplants,substations, and connected consumers, connect to a substation, buy energy from it and sell it to consumers.
+            </p>
+          </div>
+        </div>
+        <div className="divs">
+          <img src={utility} alt="" className="image" />
+          <div className="">
+            <h1>Consumer</h1>
+            <p>
+             Get Started as Consumer, where a consumer can view distributors, where the electricity is coming from, connect to one, buy energy from it and check electricity supply.
             </p>
           </div>
         </div>

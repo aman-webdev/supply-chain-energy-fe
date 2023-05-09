@@ -224,13 +224,14 @@ padding: .25rem 2rem;
 
 .offers-part2 {
   display: flex;
-  flex-flow: row wrap;
+  /* flex-flow: row wrap; */
   justify-content: space-around;
   gap: 3%;
   color: white;
   background-color: rgb(30, 29, 29);
   z-index: 0;
   margin-top: 2rem;
+  margin-bottom: 4rem;
 }
 
 .divs {
